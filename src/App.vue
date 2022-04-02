@@ -21,7 +21,7 @@
 export default {
   name: "App",
   data() {
-    return {
+    return {  //TODOS VALORES DINAMICOS SÃO PASSADOS COMO DATA()
       numero: 0,
       botao: "Vai",
       timer: null,
@@ -34,13 +34,13 @@ export default {
   methods: {
     vai() {
       if (this.timer != null) {
-        clearInterval(this.timer);
+        clearInterval(this.timer); // SE O VALOR DO TIMER FOR DIFERENTE DE NULL VAI LIMPAR O INTERVALO SETADO ABAIXO E VOLTA O VALOR DE TIMER PARA NULL
         this.timer = null;
-        this.botao = "Vai";
+        this.botao = "Vai"; //MUDA O TEXTO DO BOTAO DINAMICAMENTE
         if(this.ss !== 0){
-          this.historico.push(this.numero)
+          this.historico.push(this.numero) // JOGA O VALOR PAUSADO PARA DENTRO DO ARRAY HISTORICO
         }
-      } else {
+      } else { //SE O VALOR DE TIMER FOR IGUAL A NULL VAI CHAMAR UMA FUNÇÃO QUE INICIA O CONTADOR E MUDA O TEXTO DO BOTAO PARA PAUSAR
         this.botao = "Pausar";
         this.timer = setInterval(() => {
           this.rodarTimer();
@@ -49,7 +49,7 @@ export default {
     },
     limpar() {
      if(this.timer !== null){
-        clearInterval(this.timer)
+        clearInterval(this.timer) //LIMPA O INTERVALO E VOLTA O VALOR DO TIMER PARA NULL
         this.timer = null
      }
       this.ss = 0
@@ -59,27 +59,30 @@ export default {
       this.botao = 'Vai'
     },
     rodarTimer() {
-      this.ss++;
+      this.ss++; //QUANDO CHAMADA ESSA FUNÇÃO ELA INICIA A CONTAGEM DOS SEGUNDOS
 
-      if (this.ss == 59) {
+      if (this.ss == 59) { //SE SEGUNDOS CHEGAR A 59, ELE ZERA OS SEGUNDOS DE NOVO E SOMA 1 NOS MINUTOS
         this.ss = 0;
         this.mm++;
       }
-      if (this.mm == 59) {
+      if (this.mm == 59) { //SE MINUTOS CHEGAR A 59, ELE ZERA OS MINUTOS DE NOVO E SOMA 1 NAS HORAS
         this.mm = 0;
         this.hh++;
       }
+
+      //FORMATANDO PARA QUE OS VALORES DE TEMPO SEMPRE FIQUEM PADROES COM 2 DIGITOS
       let format =
-        (this.hh < 10 ? "0" + this.hh : this.hh) +
+        (this.hh < 10 ? "0" + this.hh : this.hh) + 
         ":" +
         (this.mm < 10 ? "0" + this.mm : this.mm) +
         ":" +
         (this.ss < 10 ? "0" + this.ss : this.ss);
 
-      return (this.numero = format);
+      return (this.numero = format); //retorna o valor formatado na data numero
     },
+
     limparHistorico(){
-      return this.historico = []
+      return this.historico = [] //retorna o length do array para 0
     }
 
   },
